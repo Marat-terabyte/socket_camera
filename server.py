@@ -9,15 +9,12 @@ server.listen()
 
 cap = cv2.VideoCapture(0 , cv2.CAP_DSHOW)
 
-
 def camera(conn):
 	while True:
 		ret, frame = cap.read()
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-	
+		
 		encoded, buf = cv2.imencode('.jpg', frame)
-
-
 		image = base64.b64encode(buf)
 
 		conn.send(image)
@@ -36,17 +33,3 @@ def start_server():
 
 if __name__ == '__main__':
 	start_server()
-
-
-'''
-while True:
-	conn , addres = server.accept()
-	ret, frame = cap.read()
-	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-	
-	encoded, buf = cv2.imencode('.jpg', frame)
-	image = base64.b64encode(buf)
-	conn.send(image)
-
-cap.release()
-cv2.destroyAllWindows()'''
